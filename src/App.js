@@ -13,10 +13,10 @@ function App() {
         <Navbar />
         <br />
         <Routes>
-          <Route path="/" exact element={ExercisesList} />
-          <Route path="/edit/:id" element={EditExercise} />
-          <Route path="/create" element={CreateExrcise} />
-          <Route path="/user" element={CreateUser} />
+          <Route exact path="/" element={<ExercisesList />} />
+          <Route path="/edit/:id" element={<EditExercise />} />
+          <Route path="/create" element={<CreateExrcise />} />
+          <Route path="/user" element={<CreateUser />} />
         </Routes>
       </div>
     </BrowserRouter>
