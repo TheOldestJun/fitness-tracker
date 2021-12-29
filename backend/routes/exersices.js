@@ -28,10 +28,10 @@ router.route("/add").post((req, res) => {
 router.route("/:id").get((req, res) => {
   Exercise.findById(req.params.id)
     .then((exercise) => res.json(exercise))
-    .catch((e) => req.status(400).json(`Error: ${e.message}`));
+    .catch((e) => res.status(400).json(`Error: ${e.message}`));
 });
 
-router.route("update/: id").post((req, res) => [
+router.route("/update/:id").post((req, res) => {
   Exercise.findById(req.params.id)
     .then((exercise) => {
       exercise.username = req.body.username;
@@ -43,13 +43,13 @@ router.route("update/: id").post((req, res) => [
         .then(() => res.json("Exercise updated"))
         .catch((e) => res.status(400).json(`Error: ${e.message}`));
     })
-    .catch((e) => res.status(400).json(`Error: ${e.message}`)),
-]);
+    .catch((e) => res.status(400).json(`Error: ${e.message}`));
+});
 
-router.route('/:id').delete((req, res) => {
-    Exercise.findByIdAndDelete(req.params.id)
-      .then(() => res.json("Exercise deleted"))
-      .catch((e) => res.status(400).json(`Error: ${e.message}`));
-})
+router.route("/:id").delete((req, res) => {
+  Exercise.findByIdAndDelete(req.params.id)
+    .then(() => res.json("Exercise deleted"))
+    .catch((e) => res.status(400).json(`Error: ${e.message}`));
+});
 
 module.exports = router;
