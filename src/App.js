@@ -13,6 +13,7 @@ function App() {
         <Navbar />
         <br />
         <Routes>
+          {/*do not forget the schema of routes in react */}
           <Route exact path="/" element={<ExercisesList />} />
           <Route path="/edit/:id" element={<EditExercise />} />
           <Route path="/create" element={<CreateExrcise />} />
