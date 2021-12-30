@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
 
 export default class CreateExrcise extends Component {
   constructor(props) {
@@ -20,13 +21,19 @@ export default class CreateExrcise extends Component {
       users: [],
     };
   }
+  //react routin invoke immedietly after component is mounted
   componentDidMount() {
-    //react routin invoke immedietly after component is mounted
-    this.setState({
-      //hardcoding one user for test purposes here we'll get server responce from mondo with array of users
-      users: ["test user"],
-      username: "test user",
-    });
+    axios
+      .get("http://localhost:5000/users/")
+      .then((response) => {
+        if (response.data.length > 0) {
+          this.setState({
+            users: response.data.map((user) => user.username), //filling users array for dropdown list
+            username: response.data[0].username, // state.username setting first element
+          });
+        }
+      })
+      .catch((err) => console.log(`Error: ${err.message}`));
   }
   onChangeUsername(e) {
     this.setState({ username: e.target.value });
@@ -48,6 +55,9 @@ export default class CreateExrcise extends Component {
       duration: this.state.duration,
       date: this.state.date,
     };
+    axios
+      .post("http://localhost:5000/exercises/add", exercise)
+      .then((res) => console.log(res.data));
     console.log(exercise); //!!!!!!!---------add backend api here----------!!!!!!!!!!!
     window.location = "/"; //updating the location: after submiting form user is taken back home page
   }
@@ -62,9 +72,11 @@ export default class CreateExrcise extends Component {
               ref="userInput"
               required
               className="form-control"
-              value={this.state.username}
+              value={this.state.username} // default will be a first user in users array first in DB
+              onChange={this.onChangeUsername}
             >
               {this.state.users.map(function (user) {
+                //and deploy array of users created early to options in dropdown one by one
                 return (
                   <option key={user} value={user}>
                     {user}

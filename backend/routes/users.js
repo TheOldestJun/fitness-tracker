@@ -20,7 +20,7 @@ router.route("/add").post((req, res) => {
 
 router.route("/:id").delete((req, res) => {
   User.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Exercise deleted"))
+    .then(() => res.json("User deleted"))
     .catch((e) => res.status(400).json(`Error: ${e.message}`));
 });
 
