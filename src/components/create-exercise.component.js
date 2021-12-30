@@ -49,7 +49,7 @@ export default class CreateExrcise extends Component {
       date: this.state.date,
     };
     console.log(exercise); //!!!!!!!---------add backend api here----------!!!!!!!!!!!
-    //window.location = "/"; //updating the location: after submiting form user is taken back home page
+    window.location = "/"; //updating the location: after submiting form user is taken back home page
   }
   render() {
     return (
@@ -101,7 +101,7 @@ export default class CreateExrcise extends Component {
               />
             </div>
           </div>
-          <br/>
+          <br />
           <div className="form-group">
             <input
               type="submit"
